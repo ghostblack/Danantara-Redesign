@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Language } from '../App';
@@ -63,8 +64,8 @@ const TRANSLATIONS = {
 };
 
 // Hook for counting animation
-const useCounter = (end: number, duration: number = 2000, start: boolean = false) => {
-  const [count, setCount] = useState(0);
+const useCounter = (end: number, duration: number = 2000, start: boolean = false, startValue: number = 0) => {
+  const [count, setCount] = useState(startValue);
 
   useEffect(() => {
     if (!start) return;
@@ -80,7 +81,11 @@ const useCounter = (end: number, duration: number = 2000, start: boolean = false
       // Ease out expo
       const ease = (x: number) => (x === 1 ? 1 : 1 - Math.pow(2, -10 * x));
       
-      setCount(Math.floor(ease(percentage) * end));
+      // Calculate current value based on startValue and end difference
+      const range = end - startValue;
+      const currentCount = Math.floor(startValue + (ease(percentage) * range));
+      
+      setCount(currentCount);
 
       if (progress < duration) {
         animationFrameId = requestAnimationFrame(animate);
@@ -90,7 +95,7 @@ const useCounter = (end: number, duration: number = 2000, start: boolean = false
     animationFrameId = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrameId);
-  }, [end, duration, start]);
+  }, [end, duration, start, startValue]);
 
   return count;
 };
@@ -101,7 +106,13 @@ const AnimatedStat = ({ value, start }: { value: string, start: boolean }) => {
   const suffixMatch = value.match(/^[\d.,]+(.*)$/);
   const suffix = suffixMatch ? suffixMatch[1] : '';
   
-  const count = useCounter(numericPart, 4000, start);
+  // Logic: If the number is large (like 9400), start from ~85% of the value (approx 8000)
+  // This makes the animation quicker visually and less jarring
+  // Small numbers (like 7 or 4) start from 0
+  const initialValue = numericPart > 100 ? Math.floor(numericPart * 0.85) : 0;
+  
+  // Reduced duration to 2500ms so it finishes comfortably (not too long)
+  const count = useCounter(numericPart, 2500, start, initialValue);
   const formattedCount = count.toLocaleString('id-ID');
 
   return (
@@ -132,7 +143,10 @@ const About: React.FC<AboutProps> = ({ lang }) => {
           setHasViewed(true);
         }
       },
-      { threshold: 0.25 }
+      { 
+        threshold: 0.3, // Increased threshold: 30% needs to be visible
+        rootMargin: "0px 0px -100px 0px" // Triggers when element is 100px up from bottom
+      }
     );
 
     if (sectionRef.current) {
@@ -147,8 +161,8 @@ const About: React.FC<AboutProps> = ({ lang }) => {
   }, [hasViewed]);
 
   const getAnimationClass = (delayClass: string) => {
-    // Reduced duration to 700ms for snappier feel
-    return `transition-all duration-700 ease-out transform ${hasViewed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'} ${delayClass}`;
+    // Smoother duration (1000ms)
+    return `transition-all duration-1000 ease-out transform ${hasViewed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'} ${delayClass}`;
   };
 
   return (
@@ -188,7 +202,7 @@ const About: React.FC<AboutProps> = ({ lang }) => {
           <div className="w-full border-t border-gray-900/80 my-2"></div>
 
           <div className="min-h-[120px]">
-            <p className="text-sm md:text-[15px] font-medium leading-relaxed text-gray-900 transition-opacity duration-300 animate-fade-in">
+            <p className="text-base md:text-xl font-medium leading-relaxed text-gray-900 transition-opacity duration-300 animate-fade-in">
               {avatars[activeAvatar].quote}
             </p>
           </div>
@@ -208,8 +222,8 @@ const About: React.FC<AboutProps> = ({ lang }) => {
           {/* Reduced delay from 500 to 200 */}
           <div className={`mb-12 ${getAnimationClass('delay-200')}`}>
             <h2 
-              className="text-3xl md:text-4xl lg:text-[3.25rem] font-normal transition-colors duration-1000"
-              style={{ lineHeight: '1.45' }}
+              className="text-2xl md:text-3xl lg:text-[2.5rem] font-normal transition-colors duration-1000"
+              style={{ lineHeight: '1.4' }}
             >
               <span className="text-gray-900 font-medium">{t.mainTextBlack} </span>
               <span 

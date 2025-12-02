@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Language } from '../App';
@@ -11,39 +12,63 @@ const SECTOR_DATA = [
     id: 'finance',
     label: { ID: 'Financial Service', EN: 'Financial Services' },
     image: 'https://ik.imagekit.io/gambarid/Danantara/Gedung-Bank-Mandiri.jpeg',
-    desc: { ID: 'Layanan Keuangan', EN: 'Financial Services' }
+    title: { 
+      ID: "Memperkuat Likuiditas & Stabilitas Keuangan", 
+      EN: "Strengthening Liquidity & Financial Stability" 
+    },
+    detailedDesc: {
+      ID: "Mengonsolidasikan aset perbankan negara untuk menciptakan pilar keuangan yang kokoh, mendukung pembiayaan proyek strategis, dan mendorong inklusi ekonomi nasional.",
+      EN: "Consolidating state banking assets to create a robust financial pillar, supporting strategic project financing, and driving national economic inclusion."
+    }
   },
   {
     id: 'energy',
     label: { ID: 'Energy & Power', EN: 'Energy & Power' },
     image: 'https://ik.imagekit.io/gambarid/Danantara/Sarulla_plant_NorthSumatra_Indonesia_small-1024x768.jpg',
-    desc: { ID: 'Energi & Kelistrikan', EN: 'Energy & Power' }
+    title: { 
+      ID: "Mengerakkan Transisi Energi Berkelanjutan", 
+      EN: "Powering the Sustainable Energy Transition" 
+    },
+    detailedDesc: {
+      ID: "Memimpin transformasi menuju energi hijau dan terbarukan (EBT) sambil memastikan ketahanan energi nasional untuk masa depan yang lebih bersih dan mandiri.",
+      EN: "Leading the transformation towards green and renewable energy while ensuring national energy security for a cleaner and more independent future."
+    }
   },
   {
     id: 'mineral',
     label: { ID: 'Mineral & Resources', EN: 'Mineral & Resources' },
     image: 'https://ik.imagekit.io/gambarid/Danantara/humas-indonesia-implementasi-prinsip-berkelanjutan-mind-id-jaga-stabilitas-sektor-pertambangan-21%20(1).jpeg',
-    desc: { ID: 'Mineral & Sumber Daya', EN: 'Mineral & Resources' }
+    title: { 
+      ID: "Hilirisasi Nilai Tambah Sumber Daya", 
+      EN: "Downstreaming Resource Value Addition" 
+    },
+    detailedDesc: {
+      ID: "Mengoptimalkan kekayaan alam Indonesia melalui hilirisasi industri mineral, meningkatkan nilai tambah komoditas demi daya saing global yang lebih kuat.",
+      EN: "Optimizing Indonesia's natural wealth through mineral industrial downstreaming, increasing commodity value-added for stronger global competitiveness."
+    }
   },
   {
     id: 'digital',
     label: { ID: 'Digital Transformation', EN: 'Digital Transformation' },
     image: 'https://ik.imagekit.io/gambarid/Danantara/76016.jpg',
-    desc: { ID: 'Transformasi Digital', EN: 'Digital Transformation' }
+    title: { 
+      ID: "Akselerasi Kedaulatan Digital Bangsa", 
+      EN: "Accelerating National Digital Sovereignty" 
+    },
+    detailedDesc: {
+      ID: "Membangun infrastruktur teknologi yang tangguh dan ekosistem digital terintegrasi untuk memberdayakan ekonomi masa depan dan inovasi dalam negeri.",
+      EN: "Building resilient technology infrastructure and an integrated digital ecosystem to empower the future economy and domestic innovation."
+    }
   }
 ];
 
 const TRANSLATIONS = {
   ID: {
     sectionTitle: "Portfolio Aset",
-    headline: "Aset Strategis Terkonsolidasi",
-    description: "Menyatukan ekosistem aset negara melalui sinergi entitas prioritas sebagai mesin pertumbuhan baru (New Growth Engine) demi mewujudkan visi Indonesia Emas 2045",
     detailLink: "Detail Portfolio"
   },
   EN: {
     sectionTitle: "Asset Portfolio",
-    headline: "Consolidated Strategic Assets",
-    description: "Uniting the state asset ecosystem through the synergy of priority entities as a New Growth Engine to realize the vision of Golden Indonesia 2045",
     detailLink: "Portfolio Details"
   }
 };
@@ -68,6 +93,9 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
   const [hasViewed, setHasViewed] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
+  // Get current sector data
+  const activeSector = SECTOR_DATA[activeSectorIndex];
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -75,7 +103,10 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
           setHasViewed(true);
         }
       },
-      { threshold: 0.2 }
+      { 
+        threshold: 0.3, // Increased threshold
+        rootMargin: "0px 0px -100px 0px" // Trigger when 100px inside viewport
+      }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => { if (sectionRef.current) observer.unobserve(sectionRef.current); };
@@ -98,8 +129,8 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
   }, []);
 
   const getAnimationClass = (delayClass: string) => {
-    // Reduced duration to 800ms
-    return `transition-all duration-800 ease-out transform ${hasViewed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'} ${delayClass}`;
+    // Smoother duration 1000ms
+    return `transition-all duration-1000 ease-out transform ${hasViewed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'} ${delayClass}`;
   };
 
   return (
@@ -129,21 +160,33 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
           
           {/* Top Content Container */}
           <div>
-            {/* Section Header - Delay 100ms */}
-            <div className={`flex items-center gap-3 mb-8 ${getAnimationClass('delay-100')}`}>
+            {/* Section Header */}
+            <div className={`flex items-center gap-3 mb-5 ${getAnimationClass('delay-100')}`}>
               <img src="https://ik.imagekit.io/gambarid/Danantara/logomerah.png" alt="Logo" className="h-5 w-auto object-contain" />
               <span className="text-sm font-semibold tracking-wide text-gray-900">{t.sectionTitle}</span>
             </div>
 
-            {/* Headline - Delay 200ms */}
-            <h2 className={`font-serif text-5xl md:text-6xl lg:text-[4.5rem] leading-[1.1] text-gray-900 mb-10 max-w-3xl text-left ${getAnimationClass('delay-200')}`}>
-              {t.headline}
-            </h2>
+            {/* Headline - Dynamic based on active sector */}
+            {/* Added scroll animation wrapper */}
+            <div className={`min-h-[90px] md:min-h-[130px] mb-2 ${getAnimationClass('delay-200')}`}>
+              <h2 
+                key={`title-${activeSectorIndex}`}
+                className={`font-serif text-4xl md:text-5xl lg:text-[4rem] leading-[1.1] text-gray-900 animate-fade-in-slide`}
+              >
+                {activeSector.title[lang]}
+              </h2>
+            </div>
 
-            {/* Description - Delay 300ms */}
-            <p className={`text-xl text-gray-500 font-light leading-relaxed mb-12 w-full text-left ${getAnimationClass('delay-300')}`}>
-              {t.description}
-            </p>
+            {/* Description - Dynamic based on active sector */}
+             {/* Added scroll animation wrapper */}
+            <div className={`min-h-[80px] mb-10 ${getAnimationClass('delay-300')}`}>
+              <p 
+                key={`desc-${activeSectorIndex}`}
+                className={`text-xl text-gray-500 font-light leading-relaxed animate-fade-in-slide delay-100`}
+              >
+                {activeSector.detailedDesc[lang]}
+              </p>
+            </div>
           </div>
 
           {/* Interactive Sector List */}
@@ -246,6 +289,19 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
         }
         .hover\\:pause:hover {
           animation-play-state: paused;
+        }
+        @keyframes fadeSlideIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .animate-fade-in-slide {
+          animation: fadeSlideIn 0.6s ease-out forwards;
         }
       `}</style>
 

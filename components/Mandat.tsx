@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Language } from '../App';
@@ -33,7 +34,9 @@ const Mandat: React.FC<MandatProps> = ({ lang }) => {
           setIsVisible(true);
         }
       },
-      { threshold: 0.2 }
+      { 
+        threshold: 0.4 // Wait until 40% of the section is visible
+      }
     );
 
     if (sectionRef.current) {
@@ -47,9 +50,9 @@ const Mandat: React.FC<MandatProps> = ({ lang }) => {
     };
   }, []);
 
-  // Standardized transition: duration-800
-  const transitionClass = "transition-all duration-800 ease-out transform";
-  const visibleClass = isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12';
+  // Standardized transition: duration-1000 for smoother feel
+  const transitionClass = "transition-all duration-1000 ease-out transform";
+  const visibleClass = isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16';
 
   return (
     <section id="mandat" ref={sectionRef} className="relative w-full h-screen min-h-[800px] overflow-hidden">

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Language } from '../App';
@@ -83,15 +84,18 @@ const News: React.FC<NewsProps> = ({ lang }) => {
           setHasViewed(true);
         }
       },
-      { threshold: 0.15 }
+      { 
+        threshold: 0.25,
+        rootMargin: "0px 0px -50px 0px"
+      }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => { if (sectionRef.current) observer.unobserve(sectionRef.current); };
   }, [hasViewed]);
 
   const getAnimationClass = (delay: number) => {
-    // Reduced duration to 800ms
-    return `transition-all duration-800 ease-out transform ${hasViewed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`;
+    // Smoother duration 1000ms
+    return `transition-all duration-1000 ease-out transform ${hasViewed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`;
   };
 
   return (

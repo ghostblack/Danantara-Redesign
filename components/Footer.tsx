@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Mail, Instagram, Linkedin } from 'lucide-react';
 import { Language } from '../App';
@@ -55,14 +56,14 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
   const t = TRANSLATIONS[lang];
 
   return (
-    <footer className="w-full bg-[#F5F5F5] pt-24 md:pt-32 flex flex-col justify-between overflow-hidden border-t border-gray-200/50">
+    <footer className="w-full bg-[#F5F5F5] pt-16 md:pt-20 flex flex-col justify-between overflow-hidden border-t border-gray-200/50">
       
       {/* Main Content */}
-      <div className="w-full max-w-[1920px] mx-auto px-6 md:px-12 lg:px-20 pb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+      <div className="w-full max-w-[1920px] mx-auto px-6 md:px-12 lg:px-20 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8">
           
           {/* Brand & Address Column */}
-          <div className="lg:col-span-4 flex flex-col gap-8">
+          <div className="lg:col-span-4 flex flex-col gap-6">
             {/* Logo Text */}
             <h2 className="text-4xl font-bold tracking-tight text-gray-900 leading-[0.9]">
               Danantara<br/>Indonesia
@@ -84,12 +85,12 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
           </div>
 
           {/* Links Columns Container */}
-          <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-8 lg:pl-12">
+          <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 gap-8 lg:pl-12">
             
             {/* Company Links */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               <h3 className="text-xl font-bold text-gray-900">{t.company}</h3>
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-3">
                 {t.company_links.map((link, idx) => (
                   <li key={idx}>
                     <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors font-light text-[17px]">
@@ -101,9 +102,9 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
             </div>
 
             {/* Governance Links */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               <h3 className="text-xl font-bold text-gray-900">{t.governance}</h3>
-              <ul className="flex flex-col gap-4">
+              <ul className="flex flex-col gap-3">
                 {t.governance_links.map((link, idx) => (
                   <li key={idx}>
                     <a href="#" className="text-gray-500 hover:text-gray-900 transition-colors font-light text-[17px]">
@@ -121,18 +122,18 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
             <h3 className="text-xl font-bold text-gray-900">{t.connect}</h3>
             <div className="flex items-center gap-4">
               {/* X (Twitter) */}
-              <a href="#" className="w-14 h-14 rounded-full border border-gray-300 flex items-center justify-center text-gray-900 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 bg-white">
-                <svg viewBox="0 0 24 24" aria-hidden="true" className="w-6 h-6 fill-current">
+              <a href="#" className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-900 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 bg-white">
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="w-5 h-5 fill-current">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
                 </svg>
               </a>
               {/* Instagram */}
-              <a href="#" className="w-14 h-14 rounded-full border border-gray-300 flex items-center justify-center text-gray-900 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 bg-white">
-                <Instagram className="w-6 h-6 stroke-[1.5]" />
+              <a href="#" className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-900 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 bg-white">
+                <Instagram className="w-5 h-5 stroke-[1.5]" />
               </a>
               {/* LinkedIn */}
-              <a href="#" className="w-14 h-14 rounded-full border border-gray-300 flex items-center justify-center text-gray-900 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 bg-white">
-                <Linkedin className="w-6 h-6 stroke-[1.5] fill-current text-transparent stroke-current" />
+              <a href="#" className="w-12 h-12 rounded-full border border-gray-300 flex items-center justify-center text-gray-900 hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 bg-white">
+                <Linkedin className="w-5 h-5 stroke-[1.5] fill-current text-transparent stroke-current" />
               </a>
             </div>
           </div>
@@ -141,12 +142,12 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
       </div>
 
       {/* Divider */}
-      <div className="w-full h-px bg-gray-300/80 mb-8 max-w-[1920px] mx-auto px-6 md:px-12 lg:px-20"></div>
+      <div className="w-full h-px bg-gray-300/80 mb-6 max-w-[1920px] mx-auto px-6 md:px-12 lg:px-20"></div>
 
       {/* Bottom Copyright & Branding */}
-      <div className="w-full max-w-[1920px] mx-auto px-6 md:px-12 lg:px-20 pb-12">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-          <p className="text-gray-500 font-light text-base md:text-lg">
+      <div className="w-full max-w-[1920px] mx-auto px-6 md:px-12 lg:px-20 pb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <p className="text-gray-500 font-light text-base">
             {t.copyright}
           </p>
           
@@ -155,15 +156,15 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
             <img 
               src="https://ik.imagekit.io/gambarid/Danantara/image%2017.png" 
               alt="Garuda Pancasila" 
-              className="h-10 w-auto"
+              className="h-8 w-auto"
             />
-            <span className="text-gray-900 text-lg font-light tracking-wide">{t.managed}</span>
+            <span className="text-gray-900 text-base font-light tracking-wide">{t.managed}</span>
           </div>
         </div>
       </div>
 
       {/* Bottom Decorative Bar */}
-      <div className="w-full h-3 flex">
+      <div className="w-full h-2 flex">
         <div className="w-[30%] bg-[#0A0A0A]"></div>
         <div className="w-[70%] bg-[#D9232D]"></div>
       </div>
